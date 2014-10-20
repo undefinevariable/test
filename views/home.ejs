@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>Home</title>
+<link rel="stylesheet" href="bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap-theme.min.css">
+<link rel="stylesheet" href="font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="jquery.min.js"></script>
+<script src="angular.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+angular.module('home',[]).
+controller('show_user_detail',function($scope,$http){
+    var email="<%= email %>";
+    $http.get("/fetch_user_information?email="+email).success(function(data){
+            $scope.user=data;
+    });
+});
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a><img src="..." alt="....." class="img-thumbnail"><strong>&nbsp;Rahil Shaikh</strong></a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Messages</a></li>
+      </ul>
+    </div>
+    <div class="feeds col-md-6">
+      <div class="post col-md-12">
+        <div class="col-md-2">
+          <img class="post-image" src="dp1.jpg" style="width:100%;height:auto"></img>
+        </div>
+        <div class="col-md-10">
+					<h4><a href="single.php">Rahil Shaikh</a> <small>March 21, 2013 - 13:54 pm</small></h4>
+					<p>Fikru scores the opening goal of Indian Super League #LetsFootball.</p>
+          <div class="like text-info"><small>Like</small>.<small>Comment</small>.<small>Share</small></div>
+          <!--<div class="pull-right like-count"><span class="badge">42</span><i class="fa fa-comments"></i></div>-->
+        </div>
+			</div>
+      <div class="post col-md-12">
+        <div class="col-md-2">
+          <img class="post-image" src="dp1.jpg" style="width:100%;height:auto"></img>
+        </div>
+        <div class="col-md-10">
+          <h4><a href="single.php">Shahid Shaikh</a> <small>March 21, 2013 - 13:54 pm</small></h4>
+          <p>Watching Bang Bang with friends ! Awesome Movie :D</p>
+          <div class="like text-info"><small>Like</small>.<small>Comment</small>.<small>Share</small></div>
+          <!--<div class="pull-right like-count"><span class="badge">42</span><i class="fa fa-comments"></i></div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

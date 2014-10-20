@@ -1,0 +1,77 @@
+<html>
+<head><title>Welcome to Social Code</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap-theme.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="jquery.min.js"></script>
+  <script src="angular.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body ng-app="socialCode" ng-controller="login as loginCtrl">
+  <div class="navbar navbar-default navbar-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed btn btn-sm" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            Login
+          </button>
+          <a class="navbar-brand" href="#">Social Code</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+      				<form ng-submit="loginForm.$valid && loginCtrl.auth()" name="loginForm" class="form-inline" id="login-form" role="form" novalidate>
+      					<div class="form-group has-feedback">
+      					   <label class="sr-only" for="exampleInputPassword2">Username</label>
+      					   <input type="email" ng-model="loginCtrl.email" class="form-control" id="exampleInputPassword2" placeholder="email" required>
+
+            	   </div>
+      				   <div class="form-group">
+      					   <label class="sr-only" for="exampleInputPassword2">Password</label>
+      					   <input type="password" ng-model="loginCtrl.pwd" class="form-control" id="exampleInputPassword2" placeholder="password" required>
+                 </div>
+      				   <button type="submit" ng-disabled="!loginForm.$valid" class="btn btn-default">Sign in</button>
+                 <button class="btn btn-primary" type="button" ng-click="loginCtrl.showSignup = 1">Sign up</button>
+      				</form>
+              <small ng-show="loginCtrl.invalid" class="text-danger"><i class="glyphicon glyphicon-warning-sign"></i>The email or password entered in invalid!</small>
+			      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6" ng-show="loginCtrl.showSignup" id="signup-block" style="margin-left:21%">
+
+				<form name="registerForm" ng-submit="loginCtrl.register(loginCtrl.registerObj)" class="form-horizontal" novalidate>
+					<div class="col-md-12">
+						<h2>Sign Up</h2>
+					</div>
+					<div class="col-md-12">
+						<input type="text" class="form-control input-lg" ng-model="loginCtrl.registerObj.username" placeholder="Username" required/>
+				   </div>
+				   <div class="col-md-12">
+						<input type="email" class="form-control input-lg"ng-model="loginCtrl.registerObj.email" placeholder="Email Address" required/>
+				   </div>
+				   <div class="col-md-6">
+						<input type="password" class="form-control input-lg" ng-model="loginCtrl.registerObj.password" placeholder="Password" required/>
+				    </div>
+					<div class="col-md-6">
+						<input type="password" class="form-control input-lg" ng-model="loginCtrl.registerObj.passwordagain" placeholder="Password again" required/>
+					</div>
+          <div class="col-md-12">
+            <p ng-show="loginCtrl.registerObj.errormsg" class="text-danger text-center"><i class="glyphicon glyphicon-warning-sign"></i>&nbsp;{{loginCtrl.registerObj.errormsg}}</p>
+          </div>
+          <div class="col-md-12">
+						<button type="submit" ng-disabled="!registerForm.$valid" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="app.js"></script>
+<script src="factory.js"></script>
+</html>
