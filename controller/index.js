@@ -1,6 +1,7 @@
 var sqlite3         =       require('sqlite3').verbose();
 var db              =       new sqlite3.Database('./socialcode.db');
 var user_session;
+var status=[];
 module.exports=function(app)
 {
   /*
@@ -8,14 +9,20 @@ module.exports=function(app)
     * Router Determines at which point of request what we need to deliever.
   */
   app.get('/',function(req,res){
-      res.render('login');
+    user_session=req.session;
+      if(!user_session.email)
+        {
+              res.render('login');
+        }
+      else
+        {
+              res.redirect('/home');
+        }
   });
 
   app.post('/login',function(req,res){
 	  var email=req.body.email;
     var password=req.body.password;
-    console.log(JSON.stringify(req.body));
-    //console.log(password);
     user_session=req.session;
     db.all("select * from user_credential where email='"+email+"' and password='"+password+"'",function(err,rows){
       if(err)
@@ -40,9 +47,6 @@ module.exports=function(app)
   app.post('/register',function(req,res){
       var user_id=null;
       user_session=req.session;
-      console.log(req.body.email);
-      console.log(req.body.password);
-      console.log(req.body.username);
       db.all("SELECT * from user_credential where email='"+req.body.email+"'",function(err,rows){
         if(rows.length>0)
           {
@@ -68,19 +72,27 @@ module.exports=function(app)
 
   app.get('/home',function(req,res){
         user_session=req.session;
-        /*if(!user_session.email)
+        if(!user_session.email)
           {
             res.redirect('/');
           }
         else
           {
                 res.render('home',{email:user_session.email});
-          }*/
-          res.render('home',{email:"shahid@codeforgeek.com"});
+          }
   });
 
   app.get('/profile',function(req,res){
 
+          user_session=req.session;
+          if(!user_session.email)
+            {
+              res.redirect('/');
+            }
+          else
+            {
+                  res.render('profile',{email:user_session.email});
+            }
   });
 
   /*
@@ -108,7 +120,7 @@ module.exports=function(app)
         {
           res.json({"status" : "false","error": "1"});
         }
-        else
+        else if(rows.length>0)
           {
             user_id=parseInt(rows[0].user_id);
             db.all("SELECT * from user_detail where user_id="+user_id,function(err,rows){
@@ -122,6 +134,10 @@ module.exports=function(app)
                 }
             });
           }
+        else
+          {
+            res.json({"status" : "false","error": "1"});
+          }
     });
   });
 
@@ -129,8 +145,6 @@ module.exports=function(app)
   app.get('/get_feed',function(req,res){
 
         var user_id=req.query.user_id;
-        var follower_list=[];
-        var status=[];
         /*
 
             * This API is responsible for extracting status update.
@@ -139,37 +153,50 @@ module.exports=function(app)
 
         */
         db.all("SELECT my_follower_id from follower where my_user_id="+user_id,function(err,rows){
-          if(err)
-            {
-              res.json({"error":"true"});
-            }
-          else
-            {
-              follower_list.push(rows);
+
               var i=0;
-              console.log(rows[1]['my_follower_id']);
-              console.log(rows.length);
               while(i<rows.length)
                 {
-                  db.all("SELECT * from status_update where user_id="+rows[i]['my_follower_id'],function(err,rows){
-                    if(err)
-                      {
-                        res.json({"error":"true"});
-                      }
-                      else
-                      {
-                        //console.log(rows);
-                        status.push(rows);
-                      }
-
-                  });
-                  i++;
+                        //for each ID, find somethng in status_update table.
+                        db.all("SELECT * from status_update where user_id="+rows[i]['my_follower_id'],function(error,data){
+                          if(error)
+                            {
+                              res.json({"error":"yes"});
+                            }
+                          else
+                            {
+                              status.push(data);
+                              res.json(status[0]);
+                            }
+                        });
+                      i++;
                 }
-            }
 
         });
-        console.log(status[0]);
-        res.json(follower_list);
+  });
+
+  /*
+
+    * This API add the status in database.
+
+  */
+
+  app.post('/add_status',function(req,res){
+
+          var user_id=req.body.user_id;
+          var status=req.body.status;
+          var privacy=req.body.privacy;
+          db.all("INSERT into status_update(user_id,status_text,privacy) VALUES ("+user_id+",'"+status+"',"+privacy+")",function(err,rows){
+            if(err)
+              {
+                res.json({"error":"1"});
+              }
+            else
+              {
+                res.json({"added":"yes"});
+              }
+          });
+
   });
 
 

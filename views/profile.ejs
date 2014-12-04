@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title></title>
+    <script src="jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+            var email="<%= email %>";
+            $.get('/fetch_user_information?email='+email,function(data){
+              document.title="Profile of "+data.user_name;
+              console.log(data);
+            });
+
+      });
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

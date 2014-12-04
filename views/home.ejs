@@ -18,42 +18,38 @@ controller('show_user_detail',function($scope,$http){
     });
 });
 </script>
+<script>
+
+        $(document).ready(function(){
+                var user_id;
+                var email="<%= email %>";
+                $.get('/fetch_user_information?email='+email,function(data){
+
+                        user_id=data.user_id;
+                        console.log(user_id);
+                        $.get('/get_feed?user_id='+user_id,function(data){
+
+                              for(var i=0;i<data.length;i++)
+                                {
+                                    $("#feeds").append(data[i].user_id+" Has shared : <br>"+data[i].status_text+"<br>");
+                                }
+
+
+                        });
+                });
+
+
+
+        });
+
+</script>
 </head>
 <body>
 <div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a><img src="..." alt="....." class="img-thumbnail"><strong>&nbsp;Rahil Shaikh</strong></a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Messages</a></li>
-      </ul>
-    </div>
-    <div class="feeds col-md-6">
-      <div class="post col-md-12">
-        <div class="col-md-2">
-          <img class="post-image" src="dp1.jpg" style="width:100%;height:auto"></img>
-        </div>
-        <div class="col-md-10">
-					<h4><a href="single.php">Rahil Shaikh</a> <small>March 21, 2013 - 13:54 pm</small></h4>
-					<p>Fikru scores the opening goal of Indian Super League #LetsFootball.</p>
-          <div class="like text-info"><small>Like</small>.<small>Comment</small>.<small>Share</small></div>
-          <!--<div class="pull-right like-count"><span class="badge">42</span><i class="fa fa-comments"></i></div>-->
-        </div>
-			</div>
-      <div class="post col-md-12">
-        <div class="col-md-2">
-          <img class="post-image" src="dp1.jpg" style="width:100%;height:auto"></img>
-        </div>
-        <div class="col-md-10">
-          <h4><a href="single.php">Shahid Shaikh</a> <small>March 21, 2013 - 13:54 pm</small></h4>
-          <p>Watching Bang Bang with friends ! Awesome Movie :D</p>
-          <div class="like text-info"><small>Like</small>.<small>Comment</small>.<small>Share</small></div>
-          <!--<div class="pull-right like-count"><span class="badge">42</span><i class="fa fa-comments"></i></div>-->
-        </div>
+      <h1>News feed: </h1>
+      <div id="feeds">
+
       </div>
-    </div>
-  </div>
 </div>
 </body>
 </html>
