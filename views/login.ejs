@@ -1,77 +1,99 @@
-<html>
-<head><title>Welcome to Social Code</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Test</title>
   <link rel="stylesheet" href="bootstrap.min.css">
-  <link rel="stylesheet" href="bootstrap-theme.min.css">
-  <link rel="stylesheet" href="style.css">
+  <!--<link rel="stylesheet" href="bootstrap-theme.min.css">-->
+  <!--<link rel="stylesheet" href="style.css">-->
+  <link href="sticky-footer-navbar.css" rel="stylesheet">
+  <link href="custom.css" rel="stylesheet">
+  <script src="ie-emulation-modes-warning.js"></script>
   <script src="jquery.min.js"></script>
   <script src="angular.min.js"></script>
   <script src="bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body ng-app="socialCode" ng-controller="login as loginCtrl">
-  <div class="navbar navbar-default navbar-top" role="navigation">
+  </head>
+
+  <body ng-app="socialCode" ng-controller="login as loginCtrl">
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top main-header" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed btn btn-sm" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            Login
-          </button>
-          <a class="navbar-brand" href="#">Social Code</a>
+          <a class="navbar-brand" href="#">LOGO</a>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-      				<form ng-submit="loginForm.$valid && loginCtrl.auth()" name="loginForm" class="form-inline" id="login-form" role="form" novalidate>
-      					<div class="form-group has-feedback">
-      					   <label class="sr-only" for="exampleInputPassword2">Username</label>
-      					   <input type="email" ng-model="loginCtrl.email" class="form-control" id="exampleInputPassword2" placeholder="email" required>
-
-            	   </div>
-      				   <div class="form-group">
-      					   <label class="sr-only" for="exampleInputPassword2">Password</label>
-      					   <input type="password" ng-model="loginCtrl.pwd" class="form-control" id="exampleInputPassword2" placeholder="password" required>
-                 </div>
-      				   <button type="submit" ng-disabled="!loginForm.$valid" class="btn btn-default">Sign in</button>
-                 <button class="btn btn-primary" type="button" ng-click="loginCtrl.showSignup = 1">Sign up</button>
-      				</form>
-              <small ng-show="loginCtrl.invalid" class="text-danger"><i class="glyphicon glyphicon-warning-sign"></i>The email or password entered in invalid!</small>
-			      </li>
-          </ul>
+        <div class="pull-right">
+          <div class="up-login">
+			<form ng-submit="loginForm.$valid && loginCtrl.auth()" name="loginForm" class="form-inline" id="login-form" role="form" novalidate>
+				<span>
+				  <span class="glyphicon glyphicon-user"></span>
+				  <input type="email" ng-model="loginCtrl.email" id="exampleInputPassword2" placeholder="email" required>
+				</span>
+				<span>
+				  <span class="glyphicon glyphicon-lock"></span>
+				  <input type="password" ng-model="loginCtrl.pwd" id="exampleInputPassword2" placeholder="password" required>
+				</span>
+				<span><button type="submit" ng-disabled="!loginForm.$valid" class="btn custom-login">LOGIN</button></span>
+			</form>
+          </div>
+          <div class="down-login">
+            <span class="remember">Forgot your password?</span>
+          </div>
         </div>
       </div>
     </div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6" ng-show="loginCtrl.showSignup" id="signup-block" style="margin-left:21%">
 
-				<form name="registerForm" ng-submit="loginCtrl.register(loginCtrl.registerObj)" class="form-horizontal" novalidate>
-					<div class="col-md-12">
-						<h2>Sign Up</h2>
-					</div>
-					<div class="col-md-12">
-						<input type="text" class="form-control input-lg" ng-model="loginCtrl.registerObj.username" placeholder="Username" required/>
-				   </div>
-				   <div class="col-md-12">
-						<input type="email" class="form-control input-lg"ng-model="loginCtrl.registerObj.email" placeholder="Email Address" required/>
-				   </div>
-				   <div class="col-md-6">
-						<input type="password" class="form-control input-lg" ng-model="loginCtrl.registerObj.password" placeholder="Password" required/>
-				    </div>
-					<div class="col-md-6">
-						<input type="password" class="form-control input-lg" ng-model="loginCtrl.registerObj.passwordagain" placeholder="Password again" required/>
-					</div>
-          <div class="col-md-12">
-            <p ng-show="loginCtrl.registerObj.errormsg" class="text-danger text-center"><i class="glyphicon glyphicon-warning-sign"></i>&nbsp;{{loginCtrl.registerObj.errormsg}}</p>
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 signup-left">
+          <div class="page-header">
+            <h1>The Social network<br>for <br>making <strong>new friends</strong></h1>
           </div>
-          <div class="col-md-12">
-						<button type="submit" ng-disabled="!registerForm.$valid" class="btn btn-primary btn-lg btn-block">Sign Up</button>
-					</div>
+          <p class="lead"></p>
+        </div>
+        <div class="col-md-6">
+          <div class="signup-section">
+            <div class="signup-up">
+              <div class="content">JOIN FREE!</div>
+              <div class="social-connect">
+                <span class="facebook-btn">Sign in with Facebook</span>
+                <span class="twitter-btn">Sign in with Twitter</span>
+              </div>
+            </div>
+            <div class="signup-down">
+              <div class="content"><strong>OR</strong> <br> Create a new one</div>
+              <div class="signup-form">
+			   <form name="registerForm" ng-submit="loginCtrl.register(loginCtrl.registerObj)" class="form-horizontal" novalidate>
+                <span><span class="glyphicon glyphicon-user"></span><input type="text" ng-model="loginCtrl.registerObj.username" placeholder="Username" required/></span>
+                <span><span class="glyphicon glyphicon-envelope"></span><input type="email" ng-model="loginCtrl.registerObj.email" placeholder="Email Address" required></span>
+                <span><span class="glyphicon glyphicon-lock"></span><input type="password" ng-model="loginCtrl.registerObj.password" placeholder="Password" required/></span>
+                <span><span class="glyphicon glyphicon-lock"></span><input type="password" ng-model="loginCtrl.registerObj.passwordagain" placeholder="Password again" required/></span>
+                <span><input type="checkbox" class="checkbox"><p> I agree to the Terms and Conditions</p></span>
+                <span><button type="submit" ng-disabled="!registerForm.$valid" class="btn custom-signup">JOIN WITH EMAIL</button></span>
+			   </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-				</form>
-			</div>
-		</div>
-	</div>
-</body>
-<script src="app.js"></script>
-<script src="factory.js"></script>
+    <div class="footer main-footer">
+      <div class="container">
+        <p class="text-muted">footer content here.</p>
+      </div>
+    </div>
+
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="ie10-viewport-bug-workaround.js"></script>
+	<script src="app.js"></script>
+	<script src="factory.js"></script>
+  </body>
 </html>

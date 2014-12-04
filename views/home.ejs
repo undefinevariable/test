@@ -8,6 +8,7 @@
 <script src="jquery.min.js"></script>
 <script src="angular.min.js"></script>
 <script src="bootstrap.min.js"></script>
+<script src="feedApp.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
 angular.module('home',[]).
@@ -20,7 +21,7 @@ controller('show_user_detail',function($scope,$http){
 </script>
 <script>
 
-        $(document).ready(function(){
+     /*   $(document).ready(function(){
                 var user_id;
                 var email="<%= email %>";
                 $.get('/fetch_user_information?email='+email,function(data){
@@ -40,16 +41,21 @@ controller('show_user_detail',function($scope,$http){
 
 
 
-        });
+        }); */
 
 </script>
 </head>
-<body>
+<body ng-app="feedApp">
 <div class="container">
       <h1>News feed: </h1>
       <div id="feeds">
 
       </div>
+	  <div ng-controller="feedCtrl as feeds">
+		<div ng-repeat="feed in feeds.usersFeed">
+			<single-post></single-post>
+		<div>
+	  </div>
 </div>
 </body>
 </html>
