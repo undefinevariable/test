@@ -201,7 +201,7 @@ module.exports=function(app)
 
   app.get('/get_user_name',function(req,res){
     /*return user name with ID*/
-
+    var user_id=req.query.user_id;    
   });
 
 
